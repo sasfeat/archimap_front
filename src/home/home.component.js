@@ -9,11 +9,16 @@
             templateUrl:'src/home/home.template.html',
             controller:HomeController,
             controllerAs:'$ctrl',
+            bindings:{
+                buildings:'<'
+            }
 
         });
     HomeController.$inject = [];
     function HomeController() {
         var $ctrl = this;
-
+        $ctrl.$onInit = function () {
+            console.log($ctrl.buildings)
+        };
     }
 })();

@@ -9,11 +9,18 @@
             templateUrl:'src/home/map/map.template.html',
             controller:MapController,
             controllerAs:'$ctrl',
+            bindings:{
+                buildings:'<'
+            }
 
-        })
+        });
     MapController.$inject = ['MapService'];
     function MapController(MapService){
         var $ctrl = this;
-        MapService.renderMap()
+        $ctrl.$onInit = function () {
+            var map = MapService.renderMap();
+            map.addMarkers($ctrl.buildings);
+        }
+
     }
 })();

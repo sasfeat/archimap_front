@@ -35,6 +35,22 @@
                 zoom:3,
                 layers:[osmBL]
             });
+            function addMarkers(buildings){
+                var markers = [];
+                _.forEach(buildings, function (building) {
+                    var marker = L.marker(new L.latLng(building.lat,building.lon));
+                    markers.push(marker);
+                });
+                map.addLayer(L.layerGroup(markers));
+            }
+            return {
+                addMarkers: function (buildings) {
+                    addMarkers(buildings)
+                }
+            }
         }
+
+
+
     }
 })();

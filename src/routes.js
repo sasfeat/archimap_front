@@ -13,7 +13,16 @@
             .state('home',{
                 url:'/',
                 component:'home',
-
+                resolve:{
+                    buildings:['BuildingsService', function(BuildingsService){
+                        return BuildingsService.getAll().then(function(response){
+                            console.log('Buildings success', response.data);
+                            return response.data
+                        }, function (response) {
+                            console.log('Buildings error', response.data);
+                        })
+                    }]
+                }
             })
     }
 
