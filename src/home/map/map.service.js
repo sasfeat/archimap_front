@@ -23,7 +23,7 @@
                     attribution: mapBoxAttribution
                 });
             var osmBL = L.tileLayer(
-                'http://{s}.tile.osm.org/{z}/{x}/{y}.png',{
+                'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',{
                     maxZoom: 18,
                     minZoom:1,
                     attribution:mapBoxAttribution
