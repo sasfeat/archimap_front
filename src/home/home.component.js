@@ -14,7 +14,6 @@
     HomeController.$inject = [];
     function HomeController() {
         var $ctrl = this;
-        console.log('hi');
 
     }
 })();
