@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="archimap">
-<head>
-    <meta charset="UTF-8">
-    <title>Architecture map</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Architecture map</title>
 
-    <!--CSS-->
-    <link rel="stylesheet" href="third-party/leaflet/dist/leaflet.css">
-    <!--JS-->
-    <script src="third-party/angular/angular.min.js"></script>
-    <script src="third-party/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="third-party/leaflet/dist/leaflet.js"></script>
+        <!--CSS (third-party)-->
+        <link rel="stylesheet" href="third-party/leaflet/dist/leaflet.css">
+        <!--CSS-->
 
-</head>
-<body>
-    <ui-view></ui-view>
-</body>
+        <!--JS (third-party)-->
+        <script src="third-party/angular/angular.min.js"></script>
+        <script src="third-party/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="third-party/leaflet/dist/leaflet.js"></script>
+
+        <!--JS-->
+        <script src="src/archimap.module.js"></script>
+        <script src="src/routes.js"></script>
+        <script src="src/home/home.component.js"></script>
+    </head>
+    <body>
+        <ui-view></ui-view>
+    </body>
 </html>
