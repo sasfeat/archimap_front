@@ -6,15 +6,16 @@
     'use strict';
     angular.module('archimap')
         .service('BuildingsService', BuildingsService);
-    BuildingsService.$inject = ['$http', 'ApiPath_local'];
+    BuildingsService.$inject = ['$http', 'ApiPath'];
 
-    function BuildingsService($http, ApiPath_local){
+    function BuildingsService($http, ApiPath){
         var service = this;
 
         service.getAll = function () {
+            console.log(ApiPath);
             return $http({
                 type:'GET',
-                url:ApiPath_local + '/build_meta'
+                url:ApiPath + '/build_meta'
             })
         }
     }

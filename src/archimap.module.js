@@ -4,12 +4,22 @@
 
 (function(){
     'use strict';
-    angular.module('archimap',[
+    var app = angular.module('archimap',[
         'ui.router'
     ])
-        .config(config)
-        .constant('ApiPath_local', 'http://localhost:5000/api')
-        .constant('ApiPath_heroku', 'http://archimap.herokuapp.com/api');
+        .config(config);
+
+    var host = window.location.hostname;
+    var apipath;
+    if (host === 'localhost'){
+        apipath = 'http://localhost:5000/api'
+    }else if (host === 'archimap.herokuapp.com'){
+        apipath = 'http://archimap.herokuapp.com/api'
+    }else{
+        throw 'unknown api host'
+    }
+    app.constant('ApiPath', apipath);
+
     config.$inject = ['$urlRouterProvider'];
     function config($urlRouterProvider) {
         // If user goes to a path that doesn't exist, redirect to public root
