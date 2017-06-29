@@ -11,11 +11,10 @@
             controllerAs:'$ctrl',
 
         });
-    console.log('hi');
     HomeController.$inject = [];
     function HomeController() {
         var $ctrl = this;
         console.log('hi');
 
     }
-});
+})();
