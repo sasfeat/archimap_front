@@ -1,0 +1,23 @@
+{
+  "name": "archimap_front",
+  "authors": [
+    "sasfeat <sasfeat@mail.ru>"
+  ],
+  "description": "architecture map frontend",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "third-party",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.6.4",
+    "leaflet": "^1.1.0",
+    "angular-ui-router": "^1.0.4"
+  }
+}
