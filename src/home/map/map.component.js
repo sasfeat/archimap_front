@@ -20,6 +20,7 @@
         $ctrl.$onInit = function () {
             var map = MapService.renderMap();
             map.addMarkers($ctrl.buildings);
+
         }
 
     }
