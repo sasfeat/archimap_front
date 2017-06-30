@@ -13,7 +13,7 @@
     var apipath;
     if (host === 'localhost'){
         apipath = 'http://localhost:5000/api'
-    }else if (host === 'archimap.herokuapp.com'){
+    }else if (host === 'sasfeat.github.io'){
         apipath = 'http://archimap.herokuapp.com/api'
     }else{
         throw 'unknown api host'
