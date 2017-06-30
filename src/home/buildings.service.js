@@ -12,7 +12,6 @@
         var service = this;
 
         service.getAll = function () {
-            console.log(ApiPath);
             return $http({
                 type:'GET',
                 url:ApiPath + '/build_meta'
