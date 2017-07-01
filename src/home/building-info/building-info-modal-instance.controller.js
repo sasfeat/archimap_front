@@ -16,6 +16,14 @@
             $ctrl.building.build_history = _.orderBy($ctrl.building.build_history, function(item){
                 return item.year
             },['desc']);
+
+            $ctrl.photos = [];
+            _.forEach($ctrl.building.photo.split(';'), function (url,ix) {
+                $ctrl.photos.push({
+                    id:ix,
+                    url:url
+                });
+            });
         };
         $ctrl.close = function () {
             $uibModalInstance.close(false);

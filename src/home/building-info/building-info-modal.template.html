@@ -9,6 +9,16 @@
     </a>
 </div>
 <div class="modal-body" id="modal-body">
+
+    <ng-image-gallery
+        images="$ctrl.photos"
+        on-open="opened();"
+        on-close="closed();"
+        thumb-size=200
+    >
+
+    </ng-image-gallery>
+
     <h4>Стили:</h4>
     <ul>
         <li ng-repeat="style in $ctrl.building.build_styles">{{style.name}}</li>
@@ -22,10 +32,10 @@
     <h4>История:</h4>
     <ul>
         <li ng-repeat="history_state in $ctrl.building.build_history ">
-            {{history_state.year}}: {{history_state.event}}
-            <p>{{history_state.notes}}</p>
+            {{history_state.year}}: <b>{{history_state.event}}</b>
+            <i><p>{{history_state.notes}}</p></i>
         </li>
-        <li>{{$ctrl.building.year_from}}: основание</li>
+        <li>{{$ctrl.building.year_from}}: <b>основание</b></li>
     </ul>
 
     <!--todo: байндинг не работает. -->

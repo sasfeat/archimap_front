@@ -6,7 +6,8 @@
     'use strict';
     var app = angular.module('archimap',[
         'ui.router',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'thatisuday.ng-image-gallery'
     ])
         .config(config);
 
