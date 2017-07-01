@@ -16,7 +16,13 @@
                 type:'GET',
                 url:ApiPath + '/build_meta'
             })
-        }
+        };
+        service.getOne = function(id){
+            return $http({
+                type:'GET',
+                url:ApiPath + '/build_meta/'+id
+            })
+        };
     }
 
 })();

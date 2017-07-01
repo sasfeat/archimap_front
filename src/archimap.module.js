@@ -5,7 +5,8 @@
 (function(){
     'use strict';
     var app = angular.module('archimap',[
-        'ui.router'
+        'ui.router',
+        'ui.bootstrap'
     ])
         .config(config);
 

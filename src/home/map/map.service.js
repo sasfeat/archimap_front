@@ -6,8 +6,8 @@
     'use strict';
     angular.module('archimap')
         .service('MapService', MapService);
-
-    function MapService(){
+    MapService.$inject = ['$state'];
+    function MapService($state){
         var service = this;
         service.renderMap = function(){
             var mapBoxAttribution = 'Map data &copy;<a href="http://osm.org/copyright">OpenStreetMap</a> contributors, ' +
@@ -33,7 +33,7 @@
                 'http://tiles.maps.sputnik.ru/tiles/kmt2/{z}/{x}/{y}.png',{
                     maxZoom: 19,
                     minZoom:2,
-                    // attribution:mapBoxAttribution
+                    attribution:'<a href="http://maps.sputnik.ru/">Спутник</a> | &copy; Ростелеком | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 }
             )
             var center = L.latLng(30,0);
@@ -46,17 +46,20 @@
                 var markers = [];
                 _.forEach(buildings, function (building) {
                     var marker = L.marker(new L.latLng(building.lat,building.lon));
-
                     var photos = building.photo.split(';');
                     if (photos.length>0){
                         // assume that main photo is the first one
-                        var main_photo_url = photos[0]
+                        var mainPhotoUrl = photos[0]
                     }
+                    var container = $('<div />');
+                    container.on('click', '.buildDescription', function() {
+                        $state.go('home.buildingInfo',{"id":building.id, "building":building});
+                    });
 
-                    marker.bindPopup(
-                        '<a ui-sref="home.building_info"><h4>' + building.name +
-                        '</h4></a><img class="popup_photos" src=' + main_photo_url+ '>'
-                    );
+                    container.html("<a class='buildDescription'><h4>" + building.name +"</h4></a>")
+                    container.append("<img class='popupPhotos' src=" + mainPhotoUrl+ ">");
+
+                    marker.bindPopup(container[0]);
 
                     markers.push(marker);
                 });

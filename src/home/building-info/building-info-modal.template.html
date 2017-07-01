@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <a href="{{$ctrl.building.link}}">
+        <h3 class="modal-title" id="modal-title">
+            {{$ctrl.building.name}}
+            <span ng-if="$ctrl.building.name_add">
+                ({{$ctrl.building.name_add}})
+            </span>
+        </h3>
+    </a>
+</div>
+<div class="modal-body" id="modal-body">
+    <h4>Стили:</h4>
+    <ul>
+        <li ng-repeat="style in $ctrl.building.build_styles">{{style.name}}</li>
+    </ul>
+    <h4>Архитекторы:</h4>
+    <ul>
+        <li ng-repeat="archi in $ctrl.building.build_archi">
+            <a href="{{archi.link}}">{{archi.first_name}} {{archi.second_name}}</a>
+        </li>
+    </ul>
+    <h4>История:</h4>
+    <ul>
+        <li ng-repeat="history_state in $ctrl.building.build_history ">
+            {{history_state.year}}: {{history_state.event}}
+            <p>{{history_state.notes}}</p>
+        </li>
+        <li>{{$ctrl.building.year_from}}: основание</li>
+    </ul>
+
+    <!--todo: байндинг не работает. -->
+    <!--<building-info building="$scope.$resolve.building"></building-info>-->
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.close()">Close</button>
+</div>

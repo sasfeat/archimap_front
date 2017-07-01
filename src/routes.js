@@ -24,6 +24,37 @@
                     }]
                 }
             })
+            .state('home.buildingInfo',{
+                url:'building/{id}',
+                // params:{
+                //     building:null
+                // },
+
+
+                onEnter: ['$uibModal','$stateParams', function($uibModal,$stateParams) {
+                    var id = $stateParams.id;
+                    $uibModal.open({
+                        templateUrl: "src/home/building-info/building-info-modal.template.html",
+                        controller: 'BuildingInfoModalInstanceController',
+                        controllerAs: '$ctrl',
+                        ariaLabelledBy:'modal-title',
+                        ariaDescribedBy:'modal-body',
+                        size:'lg',
+                        backdrop: 'static',
+                        // scope:$scope
+                        resolve:{
+                            building:['BuildingsService', function(BuildingsService){
+                                return BuildingsService.getOne(id).then(function(response){
+                                    console.log('Building get success', response.data);
+                                    return response.data
+                                }, function (response) {
+                                    console.log('Building get error', response.data);
+                                })
+                            }]
+                        }
+                    })
+                }]
+            })
     }
 
 })();
