@@ -18,7 +18,7 @@
     function HomeController() {
         var $ctrl = this;
         $ctrl.$onInit = function () {
-            console.log($ctrl.buildings)
-        };
+            console.log($ctrl.buildings);
+        }
     }
 })();

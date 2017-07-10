@@ -1,0 +1,19 @@
+    <!--<pre>Model: {{$ctrl.selectedObject | json}}</pre>-->
+<div class="searchContainer">
+    <input type="text"
+           ng-model="$ctrl.selectedObject"
+           placeholder="Поиск..."
+           uib-typeahead="objectToSearch as objectToSearch.name for objectToSearch in $ctrl.objectsToSearch | filter:{name:$viewValue}"
+           typeahead-popup-template-url="src/home/searchbox/searchbox-popup.template.html"
+           typeahead-on-select="$ctrl.selectBuildings($item, $label)"
+           class="form-control">
+    <div class="btn-group" id="my-searchbox-filters" uib-dropdown keyboard-nav>
+        <!--Выпадающее меню выбора объекта поиска-->
+        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+            {{$ctrl.selectedFilter}}<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" >
+            <li role="menuitem"  ng-repeat="myFilter in $ctrl.filters" ng-click="$ctrl.getObjectsToSearch(myFilter);"><a href>{{myFilter.name}}</a></li>
+        </ul>
+    </div>
+</div>

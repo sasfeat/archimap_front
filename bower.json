@@ -25,5 +25,10 @@
     "bootstrap": "^3.3.7",
     "ng-image-gallery": "^2.1.2",
     "angular-animate": "^1.6.4"
+  },
+  "resolutions": {
+    "jquery": "2",
+    "angular-bootstrap": "1",
+    "angular-advanced-searchbox": "d8fe7bfc37f0bfa8090c086044c89671b7b8ae0d"
   }
 }
