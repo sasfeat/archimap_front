@@ -35,13 +35,17 @@
                     minZoom:2,
                     attribution:'<a href="http://maps.sputnik.ru/">Спутник</a> | &copy; Ростелеком | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 }
-            )
+            );
             var center = L.latLng(30,0);
             var map = L.map('map',{
                 center:center,
                 zoom:3,
-                layers:[sputnikBL]
+                layers:[sputnikBL],
+                zoomControl:false
             });
+            L.control.zoom({
+                position:'topright'
+            }).addTo(map);
             function addMarkers(buildings){
                 var markers = [];
                 _.forEach(buildings, function (building) {
