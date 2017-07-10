@@ -46,10 +46,26 @@
             L.control.zoom({
                 position:'topright'
             }).addTo(map);
+
+            var markers = [];
+            var colors = {
+                selected:'red',
+                unselected: 'grey'
+            };
+            var initialBounds = map.getBounds();
             function addMarkers(buildings){
-                var markers = [];
+
                 _.forEach(buildings, function (building) {
-                    var marker = L.marker(new L.latLng(building.lat,building.lon));
+                    // var marker = L.marker(new L.latLng(building.lat,building.lon));
+                    var marker = L.circleMarker(new L.latLng(building.lat,building.lon), {
+                        radius:5,
+                        // title:inst.name,
+                        id:building.id,
+                        color:colors.selected,
+                        fillColor:colors.selected,
+                        fillOpacity:'0.8'
+                    });
+
                     var photos = building.photo.split(';');
                     if (photos.length>0){
                         // assume that main photo is the first one
@@ -69,9 +85,53 @@
                 });
                 map.addLayer(L.layerGroup(markers));
             }
+
+
+            function updateSelection(markersIds) {
+                /*
+                 change color of selected markers
+                 */
+                var selected = [];
+                _.forEach(markers,function(marker){
+
+                    if (markersIds.includes(marker.options.id)){
+                        console.log("selected inst on map",marker);
+                        selected.push(marker);
+                        marker.setStyle({
+                            color:colors.selected,
+                            fillColor:colors.selected
+                        });
+                    }else{
+                        marker.setStyle({
+                            color:colors.unselected,
+                            fillColor:colors.unselected
+                        });
+                    }
+                });
+                if (selected.length!==0){
+                    zoomToMarkers(selected);
+                }else{
+                    map.fitBounds(initialBounds)
+                }
+            }
+
+            function zoomToMarkers(markers) {
+                var latlngs = [];
+                console.log(markers);
+                _.forEach(markers,function(marker){
+                    latlngs.push(marker._latlng);
+                });
+                var bounds = new L.latLngBounds(latlngs);
+                map.fitBounds(bounds);
+            }
+
+
             return {
                 addMarkers: function (buildings) {
                     addMarkers(buildings)
+                },
+                updateSelection: function (markersIds) {
+                    updateSelection(markersIds);
                 }
             }
         }

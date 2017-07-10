@@ -14,14 +14,20 @@
             }
 
         });
-    MapController.$inject = ['MapService'];
-    function MapController(MapService){
+    MapController.$inject = ['MapService','$rootScope'];
+    function MapController(MapService,$rootScope){
         var $ctrl = this;
+        var listeners = [];
         $ctrl.$onInit = function () {
             var map = MapService.renderMap();
             map.addMarkers($ctrl.buildings);
+            $rootScope.$on('buildings:updateSelection', function (e,data) {
+                console.log(data.buildings);
+                var buildingsIds = _.map(data.buildings, 'id');
+                map.updateSelection(buildingsIds);
+            })
+        };
 
-        }
 
     }
 })();

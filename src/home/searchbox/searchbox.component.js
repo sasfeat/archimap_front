@@ -13,8 +13,8 @@
             }
 
         });
-    SearchboxController.$inject = ['$scope'];
-    function SearchboxController($scope) {
+    SearchboxController.$inject = ['$rootScope'];
+    function SearchboxController($rootScope) {
         var $ctrl = this;
 
         $ctrl.selectedObject = undefined;
@@ -49,6 +49,10 @@
         };
         $ctrl.selectBuildings = function ($item, $label) {
             console.log($item, $label);
+            $rootScope.$broadcast('buildings:updateSelection',{
+                buildings:[$item]
+            });
+
         }
 
 
