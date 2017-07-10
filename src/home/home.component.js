@@ -10,7 +10,9 @@
             controller:HomeController,
             controllerAs:'$ctrl',
             bindings:{
-                buildings:'<'
+                buildings:'<',
+                archis:'<',
+                styles: '<'
             }
 
         });
@@ -19,6 +21,11 @@
         var $ctrl = this;
         $ctrl.$onInit = function () {
             console.log($ctrl.buildings);
+            //todo: перенести на бэкэнд
+            $ctrl.archis = _.map($ctrl.archis, function(archi) {
+                return _.extend({}, archi, {name: archi.first_name + ' ' + archi.second_name});
+            });
+            
         }
     }
 })();

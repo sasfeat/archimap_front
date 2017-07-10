@@ -21,6 +21,22 @@
                         }, function (response) {
                             console.log('Buildings error', response.data);
                         })
+                    }],
+                    archis:['BuildingsService', function(BuildingsService){
+                        return BuildingsService.getArchis().then(function(response){
+                            console.log('Archis success', response.data);
+                            return response.data
+                        }, function (response) {
+                            console.log('Archis error', response.data);
+                        })
+                    }],
+                    styles:['BuildingsService', function(BuildingsService){
+                        return BuildingsService.getStyles().then(function(response){
+                            console.log('Styles success', response.data);
+                            return response.data
+                        }, function (response) {
+                            console.log('Styles error', response.data);
+                        })
                     }]
                 }
             })

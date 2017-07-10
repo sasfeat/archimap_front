@@ -9,7 +9,9 @@
             controller:SearchboxController,
             controllerAs:'$ctrl',
             bindings:{
-                buildings:'<'
+                buildings:'<',
+                archis:'<',
+                styles:'<'
             }
 
         });
@@ -18,12 +20,13 @@
         var $ctrl = this;
 
         $ctrl.selectedObject = undefined;
-        $ctrl.styles = [{name:'Барокко'},{name:'Роккоко'}];
-        $ctrl.archis = [{name:'Тризини'},{name:'Растрелли'}];
+        // $ctrl.styles = [{name:'Барокко'},{name:'Роккоко'}];
+        // $ctrl.archis = [{name:'Тризини'},{name:'Растрелли'}];
 
         $ctrl.$onInit = function () {
             // $ctrl.objectsToSearch
             console.log($ctrl.buildings);
+            console.log($ctrl.archis);
             $ctrl.filters = [
                 {
                     name:"Арх.сооружение",
@@ -49,8 +52,33 @@
         };
         $ctrl.selectBuildings = function ($item, $label) {
             console.log($item, $label);
+            var buildings = [];
+            if ($ctrl.selectedFilter === 'Арх.сооружение'){
+                buildings = [$item]
+            }else if ($ctrl.selectedFilter === 'Стиль'){
+                _.forEach($ctrl.buildings, function (build) {
+
+                    var styles = _.filter(build.build_styles, function (style) {
+                        return style.id === $item.id;
+                    });
+                    if (styles.length) {
+                        buildings.push(build);
+                    }
+                })
+            }else if ($ctrl.selectedFilter === 'Архитектор'){
+
+                _.forEach($ctrl.buildings, function (build) {
+
+                    var archis = _.filter(build.build_archi, function (archi) {
+                        return archi.id === $item.id;
+                    });
+                    if (archis.length) {
+                        buildings.push(build);
+                    }
+                })
+            }
             $rootScope.$broadcast('buildings:updateSelection',{
-                buildings:[$item]
+                buildings:buildings
             });
 
         }

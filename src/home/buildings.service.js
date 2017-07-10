@@ -23,6 +23,18 @@
                 url:ApiPath + '/build_meta/'+id
             })
         };
+        service.getStyles = function () {
+            return $http({
+                type:'GET',
+                url:ApiPath + '/styles'
+            })
+        };
+        service.getArchis = function () {
+            return $http({
+                type:'GET',
+                url:ApiPath + '/archi'
+            })
+        }
     }
 
 })();
