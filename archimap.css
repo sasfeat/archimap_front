@@ -58,3 +58,9 @@ html, body, #map {
     top: 0;
     left: 300px;
 }
+.searchContainer > #cleaner {
+    position: absolute;
+    top: 5px;
+    left: 285px;
+    cursor: pointer;
+}

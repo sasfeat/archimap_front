@@ -23,7 +23,10 @@
             map.addMarkers($ctrl.buildings);
             $rootScope.$on('buildings:updateSelection', function (e,data) {
                 console.log(data.buildings);
-                var buildingsIds = _.map(data.buildings, 'id');
+                var buildingsIds = [];
+                if (data.buildings.length) {
+                    buildingsIds = _.map(data.buildings, 'id');
+                }
                 map.updateSelection(buildingsIds);
             })
         };
