@@ -81,6 +81,16 @@
                 buildings:buildings
             });
 
+        };
+
+        $ctrl.showAddNew = function(){
+            console.log('hi!');
+        };
+        $ctrl.clear = function () {
+            $ctrl.selectedObject = "";
+            $rootScope.$broadcast('buildings:updateSelection',{
+                buildings:[]
+            });
         }
 
 

@@ -92,22 +92,32 @@
                  change color of selected markers
                  */
                 var selected = [];
-                _.forEach(markers,function(marker){
 
-                    if (markersIds.includes(marker.options.id)){
-                        console.log("selected inst on map",marker);
-                        selected.push(marker);
+                if (markersIds.length) {
+                    _.forEach(markers, function (marker) {
+
+                        if (markersIds.includes(marker.options.id)) {
+                            console.log("selected inst on map", marker);
+                            selected.push(marker);
+                            marker.setStyle({
+                                color: colors.selected,
+                                fillColor: colors.selected
+                            });
+                        } else {
+                            marker.setStyle({
+                                color: colors.unselected,
+                                fillColor: colors.unselected
+                            });
+                        }
+                    });
+                }else {
+                    _.forEach(markers, function (marker) {
                         marker.setStyle({
-                            color:colors.selected,
-                            fillColor:colors.selected
+                            color: colors.selected,
+                            fillColor: colors.selected
                         });
-                    }else{
-                        marker.setStyle({
-                            color:colors.unselected,
-                            fillColor:colors.unselected
-                        });
-                    }
-                });
+                    });
+                }
                 if (selected.length!==0){
                     zoomToMarkers(selected);
                 }else{
