@@ -25,6 +25,7 @@
             $ctrl.archis = _.map($ctrl.archis, function(archi) {
                 return _.extend({}, archi, {name: archi.first_name + ' ' + archi.second_name});
             });
+
             
         }
     }

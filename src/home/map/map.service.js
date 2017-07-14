@@ -76,7 +76,7 @@
                         $state.go('home.buildingInfo',{"id":building.id, "building":building});
                     });
 
-                    container.html("<a class='buildDescription'><h4>" + building.name +"</h4></a>")
+                    container.html("<a class='buildDescription'><h4 style='cursor:pointer'>" + building.name +"</h4></a>");
                     container.append("<img class='popupPhotos' src=" + mainPhotoUrl+ ">");
 
                     marker.bindPopup(container[0]);
