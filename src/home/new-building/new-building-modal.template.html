@@ -1,0 +1,202 @@
+<div class="modal-header">
+    <h1>Добавить новое сооружение</h1>
+</div>
+<div class="modal-body form-horizontal" id="modal-body">
+    <div class="form-group">
+        <label for="newBuildingName" class="control-label col-sm-3">Название</label>
+        <div class="col-sm-9">
+            <input placeholder="напр.: Екатерининский дворец" type="text" class="form-control" id="newBuildingName" ng-model="$ctrl.json.name" autofocus="autofocus">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="newBuildingNameAdd" class="control-label col-sm-3">Доп.названия</label>
+        <div class="col-sm-9">
+            <input placeholder="напр.: Большой дворец, Старый дворец (вводить через запятую )" type="text" class="form-control" id="newBuildingNameAdd" ng-model="$ctrl.json.nameAdd">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="newBuildingLink" class="control-label col-sm-3">Ссылка</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="newBuildingLink" ng-model="$ctrl.json.link">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="newBuildingCoordinates" class="control-label col-sm-3">Координаты</label>
+        <div class="col-sm-9 no-gutter" id="newBuildingCoordinates">
+            <div class="col-sm-6">
+                <input placeholder="широта" type="text" class="form-control" id="newBuildingLat" ng-model="$ctrl.json.lat">
+            </div>
+            <div class="col-sm-6">
+                <input placeholder="долгота" type="text" class="form-control" id="newBuildingLon" ng-model="$ctrl.json.lon">
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="newBuildingPhoto" class="control-label col-sm-3">Фотографии</label>
+        <div id="newBuildingPhoto" class="col-sm-9 no-gutter">
+            <ng-image-gallery
+                    style="margin-bottom: 5px"
+                    images="$ctrl.data.photo.all"
+                    methods="$ctrl.methods"
+                    on-open="opened();"
+                    on-close="closed();"
+                    on-delete="$ctrl.removeValue('photo',$index)"
+                    thumb-size=150>
+            </ng-image-gallery>
+                <div class="col-sm-11">
+                    <input placeholder="ссылка на фотографию" ng-model="$ctrl.data.photo.current" type="text" class="form-control">
+                </div>
+                <div class="col-sm-1" style="text-align:center">
+                    <span class="glyphicon glyphicon-plus" style="color:forestgreen; top:5px; cursor:pointer"  ng-click="$ctrl.addNew('photo')"></span>
+                </div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="newBuildingArchi" class="control-label col-sm-3">Архитекторы</label>
+        <div class="col-sm-9 no-gutter" id="newBuildingArchi">
+            <div ng-repeat="archi in $ctrl.data.archi.all" class="row">
+                <div class="col-sm-5">
+                    <p>{{archi.name}}</p>
+                </div>
+                <div class="col-sm-1">
+                    <span ng-click="$ctrl.removeValue('archi', $index)" class="glyphicon glyphicon-remove" style="cursor:pointer"></span>
+                </div>
+            </div>
+            <div class="col-sm-11">
+                <input type="text"
+                       placeholder='напр.: Растрелли'
+                       ng-model="$ctrl.data.archi.current"
+                       uib-typeahead="archi as archi.name for archi in $ctrl.archis | filter:{name:$viewValue}"
+                       typeahead-popup-template-url="src/home/searchbox/searchbox-popup.template.html"
+                       typeahead-no-results="$ctrl.noArchi"
+                       class="form-control">
+            </div>
+            <div class="col-sm-1" style="text-align:center">
+                <span class="glyphicon glyphicon-plus" style="color:forestgreen; top:5px; cursor:pointer" ng-if="!$ctrl.noArchi"  ng-click="$ctrl.addNew('archi')"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" ng-if="$ctrl.noArchi && $ctrl.data.archi.current">
+        <label for="newArchi" class="control-label col-sm-3"> Новый арх-р</label>
+        <div class="col-sm-9 no-gutter"  id="newArchi">
+            <div class="col-sm-3 ">
+                <input placeholder="Имя" type="text" class="form-control" ng-model="$ctrl.newArchi.first_name" id="noArchiFirstName">
+            </div>
+            <div class="col-sm-4">
+                <input placeholder="Фамилия" type="text" class="form-control" ng-model="$ctrl.newArchi.second_name" id="noArchiSecondName">
+            </div>
+            <div class="col-sm-4">
+                <input placeholder="Ссылка" type="text" class="form-control" ng-model="$ctrl.newArchi.link" id="noArchiLink">
+            </div>
+            <div class="col-sm-1" style="text-align:center">
+                <span class="glyphicon glyphicon-plus" style="color:forestgreen; top:5px; cursor:pointer" ng-click="$ctrl.addNew('archi')"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="newBuildingStyle" class="control-label col-sm-3">Стили</label>
+
+        <div id="newBuildingStyle" class="col-sm-9 no-gutter">
+            <div ng-repeat="style in $ctrl.data.style.all">
+                <div class="col-sm-5">
+                    <p>{{style.name}}</p>
+                </div>
+                <div class="col-sm-1">
+                    <span ng-click="$ctrl.removeValue('style', $index)" class="glyphicon glyphicon-remove" style="cursor:pointer"></span>
+                </div>
+            </div>
+
+            <div class="col-sm-11">
+                <input type="text"
+                       placeholder='напр.: барокко'
+                       ng-model="$ctrl.data.style.current"
+                       uib-typeahead="style as style.name for style in $ctrl.styles | filter:{name:$viewValue}"
+                       typeahead-popup-template-url="src/home/searchbox/searchbox-popup.template.html"
+                       typeahead-no-results="$ctrl.noStyle"
+                       class="form-control">
+            </div>
+            <div class="col-sm-1" style="text-align:center">
+                <span class="glyphicon glyphicon-plus" style="color:forestgreen; top:5px; cursor:pointer"  ng-click="$ctrl.addNew('style')"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="newBuildingHistory" class="control-label col-sm-12" style="text-align: center">История</label>
+        <div id="newBuildingHistory" class="col-sm-12">
+            <!--Период существования-->
+            <div class="row">
+                <label for="yearFrom" class="control-label col-sm-3">Год основания</label>
+                <div class="col-sm-2"  style="padding-right: 0;">
+                    <input placeholder="год" id="yearFrom" type="number" ng-model="$ctrl.history.yearFrom" class="form-control">
+                </div>
+                <label for="yearFromAcc" class="control-label col-sm-1 no-padding" style="text-align: center">+/-</label>
+                <div class="col-sm-1 no-padding">
+                    <input id="yearFromAcc" type="number" ng-model="$ctrl.history.yearFromAcc" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <label for="existsNow" class="control-label col-sm-3">Существует сейчас</label>
+                <div class="col-sm-1">
+                    <input id="existsNow" type="checkbox" ng-model="$ctrl.history.existsNow" class="form-control" >
+                </div>
+            </div>
+
+            <div class="row" ng-show="!$ctrl.history.existsNow">
+                <label for="yearTo" class="control-label col-sm-3">Разрушен в</label>
+                <div class="col-sm-2" id="yearTo"  style="padding-right: 0;">
+                    <input placeholder="год"  type="number" ng-model="$ctrl.history.yearTo" class="form-control">
+                </div>
+                <label for="yearToAcc" class="control-label col-sm-1 no-padding" style="text-align: center">+/-</label>
+                <div class="col-sm-1 no-padding" id="yearToAcc">
+                    <input type="number" ng-model="$ctrl.history.yearToAcc" class="form-control">
+                </div>
+            </div>
+            <!--События-->
+            <!--<div class="form-group">-->
+
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <!--<label for="events" class="control-label col-sm-12" style="text-align: center">События</label>-->
+            <div class="col-sm-12" id="events">
+                <div ng-repeat="event in $ctrl.data.events.all" class="row">
+                    <div class="col-sm-3">&nbsp;</div>
+                    <div class="col-sm-5">
+                        <h5><b>Событие {{$index+1}}.</b>: {{event.name}} в ({{event.year}}) году +/- {{event.yearAcc}}</h5>
+                    </div>
+                    <div class="col-sm-1">
+                        <span ng-click="$ctrl.removeValue('events', $index)" class="glyphicon glyphicon-remove" style="top:5px; cursor:pointer"></span>
+                    </div>
+                </div>
+                <label class="col-sm-3 control-label" for="eventYear">Cобытие</label>
+                <div class="col-sm-2" style="padding-right: 0;">
+                    <input placeholder="год" ng-model="$ctrl.data.events.current.year" type="number" class="form-control" id="eventYear">
+                </div>
+                <label for="eventAcc" class="control-label col-sm-1 no-padding" style="text-align: center">+/-</label>
+                <div class="col-sm-1 no-padding">
+                    <input id="eventAcc" type="number" ng-model="$ctrl.data.events.current.yearAcc" class="form-control">
+                </div>
+                <div class="col-sm-4">
+                    <input placeholder="описание" ng-model="$ctrl.data.events.current.name" type="text" class="form-control">
+                </div>
+                <div class="col-sm-1">
+                    <span class="glyphicon glyphicon-plus" style="color:forestgreen; top:5px; cursor:pointer"  ng-click="$ctrl.addNew('events')"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-success" type="button" ng-click="$ctrl.submit()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.close()">Закрыть</button>
+</div>
